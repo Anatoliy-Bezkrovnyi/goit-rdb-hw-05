@@ -1,0 +1,20 @@
+DROP FUNCTION IF EXISTS DivideParameters;
+
+DELIMITER //
+
+CREATE FUNCTION DivideParameters(first_parameter FLOAT, second_parameter FLOAT)
+RETURNS FLOAT
+DETERMINISTIC 
+READS SQL DATA
+BEGIN
+    DECLARE result FLOAT;
+    SET result = first_parameter/second_parameter;
+    RETURN result;
+END //
+
+DELIMITER ;
+
+SELECT 
+order_id, 
+DivideParameters(od.quantity, 2) as divide_results
+FROM order_details as od;
